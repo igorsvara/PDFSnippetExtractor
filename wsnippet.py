@@ -1,7 +1,7 @@
 import fitz
 
 doc = fitz.open("singlepage.pdf")
-parola_cercata = "formula"
+parola_cercata = "esercizi"
 
 page = doc[0]
 
@@ -11,21 +11,17 @@ if not occurrences:
     doc.close()
     exit()
 
-# for occ in occurrences:
-#     cropping = fitz.Rect(occ[:4])
-#     cropped_page = t_page.set_cropbox(cropping)
-#     new_doc.insert_pdf(cropped_page)
+curr_page_width = page.rect.width
+curr_page_number = page.number
+i = 0
+for occ in occurrences:
+    i += 1
+    line_margin = 3
+    line_height = occ[3] - occ[1] + line_margin
+    cropping = fitz.Rect(0, occ[1], curr_page_width, occ[1] + line_height * 2)
 
-doc.new_page(page)
-
-
-# first_occ = occurrences[0]
-# line_margin = 3
-# line_height = first_occ[3] - first_occ[1] + line_margin
-#
-# cropping = fitz.Rect(0, first_occ[1], page.rect.width, first_occ[1] + line_height * 5)
-# page.set_cropbox(cropping)
-
+    doc.fullcopy_page(curr_page_number)
+    cropped_page = doc[curr_page_number + i].set_cropbox(cropping)
 
 doc.save("nuovofile.pdf")
 doc.close()

@@ -1,6 +1,8 @@
-import os, fitz
+import os
+import fitz
 
-from_pdf = "pdf_src/<your_pdf>.pdf"
+# TODO: comprendi perche' nella dispensa di CPS i caratteri fi sono tutto uno
+from_pdf = "pdf_src/dispenseLM2122.pdf"
 parola_cercata = "Definizione"
 
 new_doc_name = f"results/{os.path.basename(from_pdf)[:-4]}-result.pdf"
@@ -33,7 +35,7 @@ for page in doc:
         new_doc[y].set_cropbox(cropping)
         # incremento y ogni volta che inserisco una pagina nel nuovo pdf
         y += 1
-        print(f"page {x} -> match #{i}")
+        print(f"page {page.number} -> match #{i}")
 
 if new_doc.page_count:
     new_doc.save(new_doc_name)

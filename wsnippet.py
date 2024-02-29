@@ -1,9 +1,9 @@
-import fitz
+import os, fitz
 
-from_pdf = "dispenseLM2122.pdf"
+from_pdf = "pdf_src/<your_pdf>.pdf"
 parola_cercata = "Definizione"
 
-new_doc_name = "result.pdf"
+new_doc_name = f"results/{os.path.basename(from_pdf)[:-4]}-result.pdf"
 snippet_line_number = 6
 line_margin = 3
 
